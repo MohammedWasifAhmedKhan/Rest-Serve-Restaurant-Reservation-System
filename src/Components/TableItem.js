@@ -1,6 +1,6 @@
 export default function TableItem({data, handleTableOnPress}) { // Declaring TableItem functional component. Props are passed as arguments.
   return (
-    <TouchableOpacity onPress={() => handleTableOnPress(data)}> {/* Render TouchableOpacity with onPress event handler. */}
+    <TouchableOpacity onPress={() => handleTableOnPress(data)}> {/* [1] Render TouchableOpacity with onPress event handler. */}
       <View style={styles.mainView}> {/* Render a View with local styles. */}
         <View style={styles.iconContainer}> {/* Render a View for icon with local styles. */}
           <MaterialIcons name="group" size={RFValue(20)} color="#000" /> {/* Render MaterialIcons with specified name, size, and color. */}
@@ -25,7 +25,7 @@ export default function TableItem({data, handleTableOnPress}) { // Declaring Tab
   );
 }
 
-const styles = StyleSheet.create({ // Declaring StyleSheet for local styles.
+const styles = StyleSheet.create({ // [2] Declaring StyleSheet for local styles.
   mainView: { // Defining style for mainView.
     width: WINDOW_WIDTH * 0.4, // Setting width based on WINDOW_WIDTH constant.
     backgroundColor: '#fff', // Setting background color.
@@ -66,3 +66,7 @@ const styles = StyleSheet.create({ // Declaring StyleSheet for local styles.
     fontSize: AppFontSize.regular, // Setting font size based on AppFontSize constant.
   },
 });
+
+// REFERENCES:
+// [1] “TouchableOpacity · React Native.” [Online]. Available: https://reactnative.dev/docs/touchableopacity. [Accessed: 17-Apr-2024]
+// [2] “StyleSheet · React Native.” [Online]. Available: https://reactnative.dev/docs/stylesheet. [Accessed: 17-Apr-2024]

@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet} from 'react-native'; // Importing necessary components from React Native library.
+import {Dimensions, StyleSheet} from 'react-native'; // [1] [2] Importing necessary components from React Native library.
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize'; // Importing responsive font size utilities.
 
 export const AppColors = { // Defining colors for the application.
@@ -18,10 +18,10 @@ export const AppFontSize = { // Defining font sizes for the application.
   large: RFValue(27), // Large font size.
 };
 
-export const WINDOW_WIDTH = Dimensions.get('window').width; // Getting the window width.
-export const WINDOW_HEIGHT = Dimensions.get('window').height; // Getting the window height.
+export const WINDOW_WIDTH = Dimensions.get('window').width; // [2] Getting the window width.
+export const WINDOW_HEIGHT = Dimensions.get('window').height; // [2] Getting the window height.
 
-export const GlobalStyles = StyleSheet.create({ // Creating global styles using StyleSheet.
+export const GlobalStyles = StyleSheet.create({ // [1] Creating global styles using StyleSheet.
   mainView: { // Main view style.
     flex: 1, // Takes up all available space.
     backgroundColor: AppColors.backgroundColor, // Background color.
@@ -56,3 +56,8 @@ export const GlobalStyles = StyleSheet.create({ // Creating global styles using 
     textAlign:'center', // Text alignment to center.
   }
 });
+
+
+//REFERENCES:
+// [1] “StyleSheet · React Native.” [Online]. Available: https://reactnative.dev/docs/stylesheet. [Accessed: 17-Apr-2024]
+// [2] "Dimensions - React Native." [Online]. Available: https://reactnative.dev/docs/dimensions. [Accessed: 18-Apr-2024]

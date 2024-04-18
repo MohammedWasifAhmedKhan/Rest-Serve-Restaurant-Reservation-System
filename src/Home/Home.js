@@ -1,19 +1,19 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native'; // Importing necessary components from React Native library.
-import React, {useState} from 'react'; // Importing React library and useState hook.
+import {FlatList, StyleSheet, Text, View} from 'react-native'; // [4] Importing necessary components from React Native library.
+import React, {useState} from 'react'; // [1] Importing React library and useState hook.
 import {GlobalStyles} from '../Global'; // Importing custom global styles.
 import AppHeader from '../Components/AppHeader'; // Importing AppHeader component.
 import TableItem from '../Components/TableItem'; // Importing TableItem component.
 import BookingTableModal from '../Components/BookingTableModal'; // Importing BookingTableModal component.
 import TableDetailsModal from '../Components/TableDetailsModal'; // Importing TableDetailsModal component.
-import {useDispatch, useSelector} from 'react-redux'; // Importing useDispatch and useSelector hooks from Redux.
+import {useDispatch, useSelector} from 'react-redux'; // [2] [3] Importing useDispatch and useSelector hooks from Redux.
 import {bookTable, vacateTable} from '../Redux/action/tableAction'; // Importing Redux actions.
 
 export default function Home() { // Declaring Home functional component.
-  const dispatch = useDispatch(); // Initializing useDispatch hook.
-  const tablesDataRedux = useSelector(state => state?.tableReducer?.tablesList); // Fetching tables data from Redux store.
-  const [handleBookingModalVisibility, sethandleBookingModalVisibility] = useState(false); // State for booking modal visibility.
-  const [handleVacateTableVisibility, sethandleVacateTableVisibility] = useState(false); // State for vacating table modal visibility.
-  const [tabelInfo, settabelInfo] = useState(null); // State for storing table information.
+  const dispatch = useDispatch(); // [2] Initializing useDispatch hook.
+  const tablesDataRedux = useSelector(state => state?.tableReducer?.tablesList); // [3] Fetching tables data from Redux store.
+  const [handleBookingModalVisibility, sethandleBookingModalVisibility] = useState(false); // [1] State for booking modal visibility.
+  const [handleVacateTableVisibility, sethandleVacateTableVisibility] = useState(false); // [1] State for vacating table modal visibility.
+  const [tabelInfo, settabelInfo] = useState(null); // [1] State for storing table information.
 
   const handleTableOnPress = data => { // Function to handle table press events.
     settabelInfo(data); // Setting table information.
@@ -89,3 +89,9 @@ const styles = StyleSheet.create({ // Declaring StyleSheet for local styles.
     alignItems: 'center', // Aligning items to the center.
   },
 });
+
+//REFERENCES:
+// [1] 	Meta Platforms, Inc. "useState – React." React Dev. Accessed: Apr. 18, 2024. [Online]. Available: https://react.dev/reference/react/useState
+// [2] 	"Redux Fundamentals, Part 5: UI and React | Redux" ReduxJS. Accessed: Apr. 18, 2024. [Online]. Available: https://redux.js.org/tutorials/fundamentals/part-5-ui-react#dispatching-actions-with-usedispatch
+// [3] 	"Redux Fundamentals, Part 5: UI and React | Redux" ReduxJS. Accessed: Apr. 18, 2024. [Online]. Available: https://redux.js.org/tutorials/fundamentals/part-5-ui-react#reading-state-from-the-store-with-useselector
+// [4] “FlatList · React Native.” [Online]. Available: https://reactnative.dev/docs/flatlist. [Accessed: 17-Apr-2024]

@@ -33,3 +33,9 @@ export default function Routes() { // Declaring Routes component.
     </NavigationContainer>
   );
 }
+
+//REFERENCES:
+// [1] 	"Stack Navigator | React Navigation" React Navigation. Accessed: Apr. 18, 2024. [Online]. Available: https://reactnavigation.org/docs/stack-navigator/
+// [2] 	"NavigationContainer | React Navigation" ReactNavigation. Accessed: Apr. 18, 2024. [Online]. Available: https://reactnavigation.org/docs/navigation-container/
+
+

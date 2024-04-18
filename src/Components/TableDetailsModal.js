@@ -1,8 +1,8 @@
-import {Modal, StyleSheet, Text, View} from 'react-native'; // Importing necessary components from React Native library.
-import React, {useState} from 'react'; // Importing React library and useState hook.
+import {Modal, StyleSheet, Text, View} from 'react-native'; // [3] [4] Importing necessary components from React Native library.
+import React, {useState} from 'react'; // [1] Importing React library and useState hook.
 import {AppColors, AppFontSize, GlobalStyles, WINDOW_WIDTH} from '../Global'; // Importing custom global constants.
 import SecondaryButton from './SecondaryButton'; // Importing SecondaryButton component.
-import moment from 'moment'; // Importing moment library for time manipulation.
+import moment from 'moment'; // [2] Importing moment library for time manipulation.
 
 export default function TableDetailsModal({ // Declaring TableDetailsModal functional component. Props are passed as arguments.
   visible, // Prop indicating whether the modal is visible.
@@ -10,8 +10,8 @@ export default function TableDetailsModal({ // Declaring TableDetailsModal funct
   data, // Data object containing table details.
   vacateTabel, // Function to vacate the table.
 }) {
-  const [timeVal, settimeVal] = useState(null); // Initializing state for time value.
-  const [intervalId, setIntervalId] = useState(null); // Initializing state for interval ID.
+  const [timeVal, settimeVal] = useState(null); // [1] Initializing state for time value.
+  const [intervalId, setIntervalId] = useState(null); // [1] Initializing state for interval ID.
 
   const caluculateTimeDifference = () => { // Function to calculate time difference and start countdown.
     const timestamp = data?.start_time; // Get the start time from data object.
@@ -39,7 +39,7 @@ export default function TableDetailsModal({ // Declaring TableDetailsModal funct
   };
 
   return (
-    <Modal visible={visible} onShow={caluculateTimeDifference} transparent> {/* Render a modal with visibility and callback for time calculation. */}
+    <Modal visible={visible} onShow={caluculateTimeDifference} transparent> {/* [3] Render a modal with visibility and callback for time calculation. */}
       <View style={GlobalStyles.modalMainView}> {/* Render main view with global styles. */}
         <View style={GlobalStyles.modalContentView}> {/* Render content view with global styles. */}
           <Text style={GlobalStyles.modalHeading}>Table Details</Text> {/* Render modal heading with global styles. */}
@@ -60,7 +60,7 @@ export default function TableDetailsModal({ // Declaring TableDetailsModal funct
               Children :{data?.booking?.children})
             </Text>
             <Text>
-              Start Time : {moment(data?.start_time).format('hh : mm a')}{' '}
+              Start Time : {moment(data?.start_time).format('hh : mm a')}{' '} 
             </Text>
           </View>
           <View style={styles.buttonView}> {/* Render button view with local styles. */}
@@ -79,7 +79,7 @@ export default function TableDetailsModal({ // Declaring TableDetailsModal funct
   );
 }
 
-const styles = StyleSheet.create({ // Declaring StyleSheet for local styles.
+const styles = StyleSheet.create({ // [4] Declaring StyleSheet for local styles.
   DetailText: { // Defining style for DetailText.
     fontSize: AppFontSize.regular, // Setting font size based on AppFontSize constant.
   },
@@ -97,3 +97,7 @@ const styles = StyleSheet.create({ // Declaring StyleSheet for local styles.
 });
 
 // REFERENCES: 
+// [1] 	Meta Platforms, Inc. "useState – React." React Dev. Accessed: Apr. 18, 2024. [Online]. Available: https://react.dev/reference/react/useState
+// [2] 	"Moment.js | Docs" MomentJS. Accessed: Apr. 18, 2024. [Online]. Available: https://momentjs.com/docs/#/use-it/
+// [3] “Modal · React Native.” [Online]. Available: https://reactnative.dev/docs/modal. [Accessed: 17-Apr-2024]
+// [4] “StyleSheet · React Native.” [Online]. Available: https://reactnative.dev/docs/stylesheet. [Accessed: 17-Apr-2024]
