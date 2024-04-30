@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "388526913834",
+    "project_id": "tablemanagementapp",
+    "storage_bucket": "tablemanagementapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388526913834:android:a0d250839f59211d41c653",
+        "android_client_info": {
+          "package_name": "com.tablemanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8wfHfi8SzA8L2imKjRjpUihwpe57ZeJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
