@@ -20,7 +20,7 @@ const styles = StyleSheet.create({ // [5] Declaring StyleSheet for local styles.
   mainView: { // Defining style for mainView.
     width: WINDOW_WIDTH * 0.8, // [6] Setting width based on WINDOW_WIDTH constant.
     alignItems: 'center', // [7] Aligning items to the center.
-    justifyContent: 'center', // [7] Justifying content to the center.
+    justifyContent: 'center', // [7] Justifying content to the center of the button.
     paddingVertical: 10, // [8] Setting vertical padding.
     marginVertical: 10, // [8] Setting vertical margin.
     backgroundColor: AppColors.buttonPrimary, // Setting background color based on AppColors constant.
