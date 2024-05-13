@@ -1,19 +1,24 @@
-import { SET_WAITLIST } from "../Types"; // Importing action type SET_WAITLIST from Types file.
+import {ADD_TO_WAITLIST, SET_WAITLIST} from '../Types';
 
-const initialState = { // Defining initial state for the waitlist reducer.
-  waitList: [], // Initializing waitList property as an empty array.
+const initialState = {
+  waitList: [],
 };
-
-const waitlistReducer = (state = initialState, action) => { // Defining the waitlist reducer function.
-  switch (action.type) { // Implementing a switch statement to handle different action types.
-    case SET_WAITLIST: // Handling the SET_WAITLIST action type.
-      return { // Returning a new state object.
-        ...state, // Copying the existing state.
-        waitList: action.payload, // Updating the waitList property with the new data.
+const waitlistReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_WAITLIST:
+      return {
+        ...state,
+        waitList: action.payload,
       };
-    default: // Handling the default case.
-      return state; // Returning the existing state.
+    case ADD_TO_WAITLIST:
+      let temp = state.waitList;
+      let newArr = [...temp, action.payload];
+      return {
+        ...state,
+        waitList: newArr,
+      };
+    default:
+      return state;
   }
 };
-
-export default waitlistReducer; // Exporting the waitlist reducer function.
+export default waitlistReducer;

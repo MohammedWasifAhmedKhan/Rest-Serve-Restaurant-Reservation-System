@@ -2,13 +2,13 @@
     {
       "id": 0,
       "persons": 2,
-      "status": "o",
+      "status": "f",
       "start_time": "45"
     },
     {
       "id": 1,
       "persons": 2,
-      "status": "o",
+      "status": "f",
       "start_time": "45"
     },
     {
@@ -20,19 +20,19 @@
     {
       "id": 3,
       "persons": 4,
-      "status": "o",
+      "status": "f",
       "start_time": "45"
     },
     {
       "id": 4,
       "persons": 6,
-      "status": "r",
+      "status": "f",
       "start_time": "45"
     },
     {
       "id": 5,
       "persons": 6,
-      "status": "o",
+      "status": "f",
       "start_time": "45"
     },
     {
@@ -44,13 +44,13 @@
     {
       "id": 8,
       "persons": 4,
-      "status": "o",
+      "status": "f",
       "start_time": "45"
     },
     {
       "id": 7,
       "persons": 8,
-      "status": "o",
+      "status": "f",
       "start_time": "45"
     },
     {
@@ -62,7 +62,7 @@
     {
       "id": 9,
       "persons": 2,
-      "status": "o",
+      "status": "f",
       "start_time": "45"
     }
 ]

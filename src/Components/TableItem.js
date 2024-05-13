@@ -1,12 +1,84 @@
-export default function TableItem({data, handleTableOnPress}) { // Declaring TableItem functional component. Props are passed as arguments.
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {AppColors, AppFontSize, WINDOW_WIDTH} from '../Global';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {RFValue} from 'react-native-responsive-fontsize';
+import moment from 'moment';
+const timeInterval = 18;
+// This function defines a React component named TableItem, which receives three props: data, handleTableOnPress, and markTableAsEmpty. 
+export default function TableItem({
+  data,
+  handleTableOnPress,
+  markTableAsEmpty,
+}) {
+   // Initializing state variables: remainingTime to hold the time remaining for the table, and intervalId to manage the interval used for updating the time display. 
+  const [remainingTime, setremainingTime] = useState(0);
+  const [intervalId, setintervalId] = useState(null);
+
+  // Function to format milliseconds into minutes and seconds
+  function formatTime() {
+      // Extracting the start time of the table from the data 
+    let startTimeStamp = data.start_time;
+    // Getting the current timestamp
+    let currentTimeStamp = Date.now();
+     // Calculating the elapsed time in milliseconds since the start time 
+    let elapsedTime = currentTimeStamp - startTimeStamp;
+      // Calculating the remaining time in milliseconds by subtracting the elapsed time from the total interval time 
+    let remainingTime = timeInterval * 60 * 1000 - elapsedTime;
+     // If the remaining time is less than or equal to zero, clear the interval and mark the table as empty 
+    if (remainingTime <= 0) {
+      clearInterval(intervalId);
+      markTableAsEmpty(data);
+    }
+      // Converting the remaining time from milliseconds to minutes and seconds 
+    let totalSeconds = Math.floor(remainingTime / 1000);
+      // Adding leading zeros to minutes and seconds if they are less than 10 
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = totalSeconds % 60;
+      // Updating the remainingTime state with the formatted time 
+    return {minutes, seconds};
+  }
+    // Function to display the remaining time in minutes and seconds 
+  function displayTime() {
+    let {minutes, seconds} = formatTime();
+    minutes = minutes > 9 ? minutes : '0' + minutes;
+    seconds = seconds > 9 ? seconds : '0' + seconds;
+    setremainingTime(`${minutes}:${seconds}`);
+  }
+
+   // Function to check the status of the table and start displaying the remaining time if it's occupied 
+  const checkStatusAndShowTime = () => {
+    if (data.status == 'o') {
+       // Setting up an interval to update the time display every second 
+      let intervalTempId = setInterval(() => {
+        displayTime();
+      }, 1000);
+        // Storing the interval ID in the state variable intervalId 
+      setintervalId(intervalTempId);
+    }
+  };
+    // Effect hook to trigger the checkStatusAndShowTime function whenever the status of the table changes
+  useEffect(() => {
+    checkStatusAndShowTime();
+  }, [data.status]);
+ // Returning the JSX for rendering the table item
   return (
     <TouchableOpacity onPress={() => handleTableOnPress(data)}> {/* [1] Render TouchableOpacity with onPress event handler. */}
-      <View style={styles.mainView}> {/* Render a View with local styles. */}
-        <View style={styles.iconContainer}> {/* Render a View for icon with local styles. */}
-          <MaterialIcons name="group" size={RFValue(20)} color="#000" /> {/* Render MaterialIcons with specified name, size, and color. */}
-          <Text style={styles.tabelePersonsText}>: {data.persons}</Text> {/* Render text with local styles and table persons data. */}
+      <View style={styles.mainView}>
+        <View style={styles.iconContainer}>
+           {/* Displaying an icon and the number of persons at the table */} 
+          <MaterialIcons name="group" size={RFValue(20)} color="#000" />
+          <Text style={styles.tabelePersonsText}>: {data.persons}</Text>
         </View>
-        <View // Render a View for table ID with dynamic background color based on table status.
+        {/* Displaying booking time and remaining time only if the table is occupied */}
+        {data.status === 'o' && (
+          <>
+            <Text>Booked At: {moment(data.booking_time).format('hh:mm A')}</Text>
+            <Text>Remaining Time: {remainingTime}</Text>
+          </>
+        )}
+        {/* Displaying the table ID with a colored circle indicating its status */} 
+        <View
           style={[
             styles.roundView,
             {
@@ -18,7 +90,7 @@ export default function TableItem({data, handleTableOnPress}) { // Declaring Tab
                   : AppColors.reserveTable,
             },
           ]}>
-          <Text style={styles.labelText}>{data.id}</Text> {/* Render table ID with local styles. */}
+          <Text style={styles.labelText}>{data.id}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -26,46 +98,48 @@ export default function TableItem({data, handleTableOnPress}) { // Declaring Tab
 }
 
 const styles = StyleSheet.create({ // [2] Declaring StyleSheet for local styles.
-  mainView: { // Defining style for mainView.
-    width: WINDOW_WIDTH * 0.4, // Setting width based on WINDOW_WIDTH constant.
-    backgroundColor: '#fff', // Setting background color.
-    marginLeft: 1, // Setting left margin.
-    height: WINDOW_WIDTH * 0.4, // Setting height based on WINDOW_WIDTH constant.
-    margin: 4, // Setting margin.
-    justifyContent: 'center', // Justifying content to the center.
-    alignItems: 'center', // Aligning items to the center.
-    shadowColor: '#000', // Setting shadow color.
-    shadowOffset: { // Setting shadow offset.
+  mainView: {
+    width: WINDOW_WIDTH * 0.4,
+    backgroundColor: '#fff',
+    marginLeft: 1,
+    height: WINDOW_WIDTH * 0.4,
+    margin: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25, // Setting shadow opacity.
-    shadowRadius: 3.84, // Setting shadow radius.
-    elevation: 5, // Setting elevation.
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
-  labelText: { // Defining style for labelText.
-    color: AppColors.secondaryText, // Setting text color based on AppColors constant.
-    fontWeight: 'bold', // Setting font weight to bold.
-    fontSize: AppFontSize.large, // Setting font size based on AppFontSize constant.
+  labelText: {
+    color: AppColors.secondaryText,
+    fontWeight: 'bold',
+    fontSize: AppFontSize.large,
   },
-  roundView: { // Defining style for roundView.
-    width: '50%', // Setting width.
-    height: '50%', // Setting height.
-    borderRadius: 50, // Setting border radius to make it round.
-    justifyContent: 'center', // Justifying content to the center.
-    alignItems: 'center', // Aligning items to the center.
+  roundView: {
+    width: '50%',
+    height: '50%',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  iconContainer: { // Defining style for iconContainer.
-    flexDirection: 'row', // Setting flexDirection to row.
-    alignSelf: 'flex-end', // Aligning self to flex-end.
-    paddingHorizontal: 5, // Setting horizontal padding.
-    alignItems: 'center', // Aligning items to the center.
+  iconContainer: {
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    paddingHorizontal: 5,
+    alignItems: 'center',
   },
-  tabelePersonsText: { // Defining style for tabelePersonsText.
-    color: AppColors.primaryText, // Setting text color based on AppColors constant.
-    fontSize: AppFontSize.regular, // Setting font size based on AppFontSize constant.
+  tabelePersonsText: {
+    color: AppColors.primaryText,
+    fontSize: AppFontSize.regular,
   },
 });
+
 
 // REFERENCES:
 // [1] “TouchableOpacity · React Native.” [Online]. Available: https://reactnative.dev/docs/touchableopacity. [Accessed: 17-Apr-2024]

@@ -1,17 +1,29 @@
 import {StyleSheet, Text, TextInput, View} from 'react-native'; // [2] [3] Importing necessary components from React Native library.
-import React from 'react'; // [1] Importing React library to use JSX syntax.
+import React from 'react';  // [1] Importing React library to use JSX syntax.
 import {AppColors, AppFontSize, WINDOW_WIDTH} from '../Global'; // Importing custom global constants.
 
-export default function TextInputComp({label, placeholder,onChangeVal,secureTextEnty=false}) { // Declaring TextInputComp functional component. Props are passed as arguments.
+export default function TextInputComp({
+  label,
+  placeholder,
+  onChangeVal,
+  secureTextEnty = false,
+  keyboardType = 'default',
+}) { // Declaring TextInputComp functional component. Props are passed as arguments.
   return (
-    <View style={styles.mainView}> {/* Rendering a View with local styles. */}
+    <View style={styles.mainView}>  {/* Rendering a View with local styles. */}
       <Text style={styles.labelText}>{label}</Text> {/* Rendering text with local styles and the 'label' prop. */}
-      <TextInput placeholder={placeholder} style={styles.textInputStyle} onChangeText={onChangeVal} secureTextEntry={secureTextEnty} /> {/* Rendering TextInput with placeholder and local styles. */}
+      <TextInput {/* Rendering TextInput with placeholder and local styles. */}
+        keyboardType={keyboardType}
+        placeholder={placeholder}
+        style={styles.textInputStyle}
+        onChangeText={onChangeVal}
+        secureTextEntry={secureTextEnty}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({
   mainView: {
     width: WINDOW_WIDTH * 0.8,
     marginVertical: 5,
@@ -24,8 +36,8 @@ const styles = StyleSheet.create({
   },
   labelText: {
     color: AppColors.primaryText,
-    fontSize:AppFontSize.regular,
-    marginBottom:5
+    fontSize: AppFontSize.regular,
+    marginBottom: 5,
   },
 });
 

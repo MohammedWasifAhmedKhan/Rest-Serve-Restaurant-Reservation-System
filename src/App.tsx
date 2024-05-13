@@ -1,17 +1,16 @@
-import React from 'react'; // Importing React library for creating components.
+import React from 'react';
 import 'react-native-gesture-handler'; // [1] Importing 'react-native-gesture-handler' for gesture handling.
-import Routes from './Navigation'; // Importing the Routes component from the Navigation file.
+import Routes from './Navigation';
 import {Provider} from 'react-redux'; // [2] Importing Provider from 'react-redux' for Redux state management.
-import {PersistGate} from 'redux-persist/integration/react'; // Importing PersistGate for Redux state persistence.
-import {store, persistor} from './Redux/store'; // Importing the Redux store and persistor.
+import {PersistGate} from 'redux-persist/integration/react'; // Import PersistGate
+import {store, persistor} from './Redux/store';
 import {SafeAreaView} from 'react-native-safe-area-context'; // [3] Importing SafeAreaView for handling safe areas.
-
-export default function App() { // Declaring the App functional component.
+export default function App() {
   return (
     <Provider store={store}> {/* [2] Providing Redux store to the application */}
-      <PersistGate loading={null} persistor={persistor}> {/* Persisting Redux state using PersistGate */}
-        <SafeAreaView style={{flex: 1, paddingTop: 40}}> {/* [3] Using SafeAreaView for handling safe areas */}
-          <Routes /> {/* Rendering the Routes component for navigation */}
+      <PersistGate loading={null} persistor={persistor}>
+        <SafeAreaView style={{flex: 1}}> {/* [3] Using SafeAreaView for handling safe areas */}
+          <Routes />
         </SafeAreaView>
       </PersistGate>
     </Provider>

@@ -1,25 +1,26 @@
-import {BOOK_TABLE, SET_TABLELIST, VACATE_TABLE} from '../Types'; // Importing action types.
+import {BOOK_TABLE, SET_TABLELIST, UPDATE_TABLE, VACATE_TABLE} from '../Types';
 
-// Function to create an action to set table list.
 export const setTableList = data => {
   return {
-    type: SET_TABLELIST, // Action type to set table list.
-    payload: data, // Data payload to be dispatched.
+    type: SET_TABLELIST,
+    payload: data,
   };
 };
-
-// Function to create an action to book a table.
 export const bookTable = data => {
   return {
-    type: BOOK_TABLE, // Action type to book a table.
-    payload: data, // Data payload to be dispatched.
+    type: BOOK_TABLE,
+    payload: data,
   };
-}
-
-// Function to create an action to vacate a table.
+};
 export const vacateTable = data => {
   return {
-    type: VACATE_TABLE, // Action type to vacate a table.
-    payload: data // Data payload to be dispatched.
-  }
-}
+    type: VACATE_TABLE,
+    payload: data,
+  };
+};
+export const updateTable = data => {
+  return {
+    type: UPDATE_TABLE,
+    payload: data,
+  };
+};

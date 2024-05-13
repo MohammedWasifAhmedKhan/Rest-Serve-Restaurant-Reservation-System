@@ -1,51 +1,55 @@
 import {Modal, StyleSheet, Text, View} from 'react-native'; // [3] [4] Importing necessary components from React Native library.
 import React, {useState} from 'react'; // [1] Importing React library and useState hook.
-import {AppColors, AppFontSize, GlobalStyles, WINDOW_WIDTH} from '../Global'; // Importing custom global constants.
-import SecondaryButton from './SecondaryButton'; // Importing SecondaryButton component.
-import moment from 'moment'; // [2] Importing moment library for time manipulation.
+import {AppColors, AppFontSize, GlobalStyles, WINDOW_WIDTH} from '../Global';
+import SecondaryButton from './SecondaryButton';
+import moment from 'moment';// [2] Importing moment library for time manipulation.
 
-export default function TableDetailsModal({ // Declaring TableDetailsModal functional component. Props are passed as arguments.
-  visible, // Prop indicating whether the modal is visible.
-  handleVisibility, // Function to handle visibility of the modal.
-  data, // Data object containing table details.
-  vacateTabel, // Function to vacate the table.
+export default function TableDetailsModal({
+  visible,
+  handleVisibility,
+  data,
+  vacateTabel,
 }) {
   const [timeVal, settimeVal] = useState(null); // [1] Initializing state for time value.
-  const [intervalId, setIntervalId] = useState(null); // [1] Initializing state for interval ID.
+  const [intervalId, setIntervalId] = useState(null);  // [1] Initializing state for interval ID.
 
-  const caluculateTimeDifference = () => { // Function to calculate time difference and start countdown.
-    const timestamp = data?.start_time; // Get the start time from data object.
-    const currentTimestamp = Date.now(); // Get current timestamp.
-    const differenceInMilliseconds = currentTimestamp - timestamp; // Calculate difference in milliseconds.
-    const differenceInMinutes = differenceInMilliseconds / (1000 * 60); // Convert difference to minutes.
+  const caluculateTimeDifference = () => { {/* [3] Render a modal with visibility and callback for time calculation. */}
+    const timestamp = data?.start_time;
+    const currentTimestamp = Date.now();
+    const differenceInMilliseconds = currentTimestamp - timestamp;
+    const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
+    // console.log('differenceInMilliseconds', differenceInMilliseconds)
      
-    let remainingTime = 90 - differenceInMinutes; // Calculate remaining time for table availability.
+    let remainingTime = 90 - differenceInMinutes;
+    // console.log('remainingTime', remainingTime)
 
-    const countdownInterval = setInterval(() => { // Start countdown interval.
-      const minutes = Math.floor(remainingTime); // Extract minutes from remaining time.
-      const seconds = Math.floor((remainingTime - minutes) * 60); // Extract seconds from remaining time.
+    const countdownInterval = setInterval(() => {
+      const minutes = Math.floor(remainingTime);
+      const seconds = Math.floor((remainingTime - minutes) * 60);
 
-      remainingTime -= 1 / 60; // Decrement remaining time.
+      console.log(`${minutes} minutes ${seconds} seconds remaining`);
 
-      settimeVal(`${minutes} minutes ${seconds} seconds`); // Update time value state with remaining time.
-
-      if (remainingTime <= 0) { // Check if remaining time is less than or equal to 0.
-        settimeVal(0); // Set time value to 0.
-        clearInterval(countdownInterval); // Clear countdown interval.
+      remainingTime -= 1 / 60;
+      settimeVal(`${minutes} minutes ${seconds} seconds`);
+      if (remainingTime <= 0) {
+        settimeVal(0);
+        clearInterval(countdownInterval);
+        console.log('Countdown completed!');
       }
-    }, 1000); // Update every second.
-    
-    setIntervalId(countdownInterval); // Store interval ID in state.
+    }, 1000);
+    setIntervalId(countdownInterval);
   };
-
+  const onDismissModal=()=>{
+    clearInterval(intervalId);
+  }
   return (
-    <Modal visible={visible} onShow={caluculateTimeDifference} transparent> {/* [3] Render a modal with visibility and callback for time calculation. */}
-      <View style={GlobalStyles.modalMainView}> {/* Render main view with global styles. */}
-        <View style={GlobalStyles.modalContentView}> {/* Render content view with global styles. */}
-          <Text style={GlobalStyles.modalHeading}>Table Details</Text> {/* Render modal heading with global styles. */}
-          <Text style={styles.timeIntervalText}>{timeVal}</Text> {/* Render remaining time with local styles. */}
-          <View> {/* Render table details. */}
-            <Text style={styles.DetailText}>Table Number: {data?.id}</Text>
+    <Modal visible={visible} transparent>
+      <View style={GlobalStyles.modalMainView}>
+        <View style={GlobalStyles.modalContentView}>
+          <Text style={GlobalStyles.modalHeading}>Table Details</Text>
+          {/* <Text style={styles.timeIntervalText}>{timeVal}</Text> */}
+          <View>
+            <Text style={styles.DetailText}>Table : {data?.id}</Text>
             <Text>Booking Number: {data?.booking?.booking}</Text>
             <Text>
               Bokking Status:{' '}
@@ -60,17 +64,17 @@ export default function TableDetailsModal({ // Declaring TableDetailsModal funct
               Children :{data?.booking?.children})
             </Text>
             <Text>
-              Start Time : {moment(data?.start_time).format('hh : mm a')}{' '} 
+              Start Time : {moment(data?.start_time).format('hh : mm a')}{' '}
             </Text>
           </View>
-          <View style={styles.buttonView}> {/* Render button view with local styles. */}
-            <SecondaryButton onPress={handleVisibility} label={'Close'} /> {/* Render Close button. */}
+          <View style={styles.buttonView}>
+            <SecondaryButton onPress={handleVisibility} label={'Close'} />
             <SecondaryButton
               onPress={() => {
-                clearInterval(intervalId); // Clear countdown interval.
-                vacateTabel(data); // Vacate the table.
+                // clearInterval(intervalId);
+                vacateTabel(data);
               }}
-              label={'Vacate'} // Render Vacate button.
+              label={'Vacate'}
             />
           </View>
         </View>
@@ -79,21 +83,21 @@ export default function TableDetailsModal({ // Declaring TableDetailsModal funct
   );
 }
 
-const styles = StyleSheet.create({ // [4] Declaring StyleSheet for local styles.
-  DetailText: { // Defining style for DetailText.
-    fontSize: AppFontSize.regular, // Setting font size based on AppFontSize constant.
+const styles = StyleSheet.create({  // [4] Declaring StyleSheet for local styles.
+  DetailText: {
+    fontSize: AppFontSize.regular,
   },
-  buttonView: { // Defining style for buttonView.
-    flexDirection: 'row', // Setting flexDirection to row.
-    justifyContent: 'space-between', // Setting justifyContent to space-between.
-    width: WINDOW_WIDTH * 0.75, // Setting width based on WINDOW_WIDTH constant.
+  buttonView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: WINDOW_WIDTH * 0.75,
   },
-  timeIntervalText: { // Defining style for timeIntervalText.
-    fontSize: AppFontSize.regular, // Setting font size based on AppFontSize constant.
-    padding: 5, // Setting padding.
-    backgroundColor: AppColors.buttonPrimary, // Setting background color based on AppColors constant.
-    color: AppColors.secondaryText, // Setting text color based on AppColors constant.
-  },
+  timeIntervalText:{
+    fontSize:AppFontSize.regular,
+    padding:5,
+    backgroundColor:AppColors.buttonPrimary,
+    color:AppColors.secondaryText
+  }
 });
 
 // REFERENCES: 

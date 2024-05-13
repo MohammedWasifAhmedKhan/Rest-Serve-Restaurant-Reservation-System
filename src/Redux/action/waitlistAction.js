@@ -1,9 +1,15 @@
-import {SET_WAITLIST} from '../Types'; // Importing action type.
+import {ADD_TO_WAITLIST, SET_WAITLIST} from '../Types';
 
-// Function to create an action to set waitlist data.
 export const setWaitlist = data => {
   return {
-    type: SET_WAITLIST, // Action type to set waitlist data.
-    payload: data, // Data payload to be dispatched.
+    type: SET_WAITLIST,
+    payload: data,
   };
 };
+
+export const addToWaitlist = data => {
+  return {
+    type: ADD_TO_WAITLIST,
+    payload: data,
+  };
+}
