@@ -25,22 +25,28 @@ export default function ForgotPassword(props: any) {
       alert('Enter email');
       return;
     }
-    setloading(true); // Enable loading state when process starts
+    // Enable loading state when process starts
+    setloading(true); 
     // Using Firebase auth to send a password reset email //[13]
     auth()
       .sendPasswordResetEmail(email)
       .then(() => {
-        setloading(false); // Disable loading state after email is sent
-
-        alert('Password reset email sent!'); // Alert user of successful action
-        props.navigation.navigate('Login'); // Navigate to Login screen
+        // Disable loading state after email is sent
+        setloading(false); 
+        // Alert user of successful action
+        alert('Password reset email sent!');
+        // Navigate to Login screen 
+        props.navigation.navigate('Login'); 
       })
       .catch(err => {
-        setloading(false); // Disable loading state on error
-
-        console.log('err', err); // Log error details
-        alert('Something went wrong! Try again later'); // Alert user of the error
-        props.navigation.navigate('Login'); // Navigate to Login screen even on error
+        // Disable loading state on error
+        setloading(false); 
+        // Log error details
+        console.log('err', err); 
+        // Alert user of the error
+        alert('Something went wrong! Try again later'); 
+        // Navigate to Login screen even on error
+        props.navigation.navigate('Login'); 
       });
   };
 
@@ -51,12 +57,15 @@ export default function ForgotPassword(props: any) {
       <TextInputComp
         label={'Enter Email'}
         placeholder={'Enter Email'}
-        onChangeVal={setemail} // Set email state on change
+        onChangeVal={setemail} 
       />
       <MainButton
-        label={'Reset Password'} // Button label
-        loading={loading} // Pass loading state to the button
-        onPress={handleReset} // Set onPress to trigger handleReset function
+      // Button label
+        label={'Reset Password'} 
+        // Pass loading state to the button
+        loading={loading} 
+        // Set onPress to trigger handleReset function
+        onPress={handleReset} 
       />
     </View>
   );
@@ -65,20 +74,30 @@ export default function ForgotPassword(props: any) {
 // StyleSheet to style the components [8]
 const styles = StyleSheet.create({
   signUpMainView: {
-    width: WINDOW_WIDTH * 0.8, // Width as a percentage of the window width
-    alignItems: 'flex-end', // [10] Align items towards the end of the flex-direction
-    justifyContent: 'flex-end', // Distribute extra space towards the end
-    marginVertical: 10, // [11] Vertical margin
-    flexDirection: 'row', // Layout children in a row
+    // Width as a percentage of the window width
+    width: WINDOW_WIDTH * 0.8, 
+    // [10] Align items towards the end of the flex-direction
+    alignItems: 'flex-end', 
+    // Distribute extra space towards the end
+    justifyContent: 'flex-end', 
+    // [11] Vertical margin
+    marginVertical: 10, 
+    // Layout children in a row
+    flexDirection: 'row', 
   },
   signUpText: {
-    fontWeight: 'bold', // Bold text for emphasis
-    fontSize: AppFontSize.small, // Use predefined font size
-    color: AppColors.primaryText, // Use predefined color
+    // Bold text for emphasis
+    fontWeight: 'bold', 
+    // Use predefined font size
+    fontSize: AppFontSize.small, 
+    // Use predefined color
+    color: AppColors.primaryText, 
   },
   dontHaveText: {
-    color: AppColors.primaryText, // Text color
-    fontSize: AppFontSize.small, // Font size
+    // Text color
+    color: AppColors.primaryText,
+    // Font size 
+    fontSize: AppFontSize.small, 
   },
 });
 

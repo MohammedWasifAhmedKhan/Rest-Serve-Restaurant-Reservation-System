@@ -58,25 +58,32 @@ export default function TableTimeReducerModal({
             keyboardType={'number-pad'}
           />
           <SecondaryButton
-            onPress={() => {  // This function defines what happens when the 'Reduce Time' button is pressed. 
+          // This function defines what happens when the 'Reduce Time' button is pressed. 
+            onPress={() => {  
               if (!selectedTable || !enteredTime) {
-                alert('Please select table and enter time');  // If either a table not selected from the dropdown or if the time to reduce is not provided, it alerts the user to make a selection or enter time.
+                // If either a table not selected from the dropdown or if the time to reduce is not provided, it alerts the user to make a selection or enter time.
+                alert('Please select table and enter time');  
                 return;
               }
-              action1({table: selectedTable?.value, time: enteredTime}); ; // 'action1' handles the reduction of time with the given inputs (table and time). 
-              emptyValues();  // Called after executing action1 to reset the form inputs, clearing any selected table and entered time, ensuring the form is clean for the next interaction. 
+              // 'action1' handles the reduction of time with the given inputs (table and time). 
+              action1({table: selectedTable?.value, time: enteredTime}); ; 
+              // Called after executing action1 to reset the form inputs, clearing any selected table and entered time, ensuring the form is clean for the next interaction. 
+              emptyValues();  
             }}
             label={'Reduce Time'}
           />
           <SecondaryButton
             label={'Vacate'}
             onPress={() => {
-              if (!selectedTable) {  // If a table not selected from the dropdown, it alerts the user to make a selection. 
+              // If a table not selected from the dropdown, it alerts the user to make a selection. 
+              if (!selectedTable) {  
                 alert('Please select a table to vacate ');
                 return;
               }
-              action1({table: selectedTable?.value});  // 'action1' vacates the selected table based on its value.
-              emptyValues();  // Called after executing action1 to reset the form inputs, clearing any selected table and entered time, ensuring the form is clean for the next interaction. 
+              // 'action1' vacates the selected table based on its value.
+              action1({table: selectedTable?.value});  
+              // Called after executing action1 to reset the form inputs, clearing any selected table and entered time, ensuring the form is clean for the next interaction. 
+              emptyValues();  
             }}
           />
           <SecondaryButton

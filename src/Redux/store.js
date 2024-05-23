@@ -1,12 +1,16 @@
 import { createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // Choose your storage engine
-import rootReducer from './reducers'; // Import your root reducer
+// Choose the storage engine
+import storage from 'redux-persist/lib/storage'; 
+// Importing root reducer
+import rootReducer from './reducers'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const persistConfig = {
   key: 'root',
-  storage: AsyncStorage,  // Specify the reducers you want to persist
-  whitelist: ['userReducer','tableReducer','waitlistReducer'], // In this example, we persist the 'user' reducer
+  // Specifying the reducers to persist
+  storage: AsyncStorage,  
+  // In this example, we persist the 'user' reducer
+  whitelist: ['userReducer','tableReducer','waitlistReducer'], 
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = createStore(persistedReducer);

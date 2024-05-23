@@ -1,34 +1,51 @@
-import {ActivityIndicator, StyleSheet, Text, TouchableOpacity, View} from 'react-native'; // [1] [2] [3] [4] [5] Importing necessary components from React Native library.
-import React from 'react'; // Importing React library to use JSX syntax.
-import {AppColors, AppFontSize, WINDOW_WIDTH} from '../Global'; // Importing custom global constants.
+// [1] [2] [3] [4] [5] Importing necessary components from React Native library.
+import {ActivityIndicator, StyleSheet, Text, TouchableOpacity, View} from 'react-native'; 
+// Importing React library to use JSX syntax.
+import React from 'react'; 
+// Importing custom global constants.
+import {AppColors, AppFontSize, WINDOW_WIDTH} from '../Global'; 
 
-export default function SecondaryButton({label, loading, onPress, customStyles}) { // Declaring SecondaryButton functional component. Props are passed as arguments.
-  return loading ? ( // Conditional rendering based on the 'loading' prop.
-    <View style={[styles.mainView, customStyles]}> {/* Rendering a View with combined local styles and custom styles. */}
-      <ActivityIndicator color={'#fff'} size={'small'} /> {/* Rendering ActivityIndicator with specified color and size. */}
+// Declaring SecondaryButton functional component. Props are passed as arguments.
+export default function SecondaryButton({label, loading, onPress, customStyles}) { 
+  // Conditional rendering based on the 'loading' prop.
+  return loading ? ( 
+    <View style={[styles.mainView, customStyles]}>  
+      <ActivityIndicator color={'#fff'} size={'small'} /> 
     </View>
-  ) : ( // Conditional rendering if 'loading' is false.
-    <TouchableOpacity onPress={onPress}> {/* Rendering TouchableOpacity with onPress event handler. */}
-      <View style={[styles.mainView, customStyles]}> {/* Rendering a View with combined local styles and custom styles. */}
-        <Text style={styles.labelText}>{label}</Text> {/* Rendering text with local styles and the 'label' prop. */}
+    // Conditional rendering if 'loading' is false.
+  ) : ( 
+    <TouchableOpacity onPress={onPress}> 
+      <View style={[styles.mainView, customStyles]}> 
+        <Text style={styles.labelText}>{label}</Text> 
       </View>
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({ // [5] Declaring StyleSheet for local styles.
-  mainView: { // Defining style for mainView.
-    width: WINDOW_WIDTH * 0.35, // [6] Setting width based on WINDOW_WIDTH constant.
-    alignItems: 'center', // [7] Aligning items to the center.
-    justifyContent: 'center', // [7] Justifying content to the center.
-    paddingVertical: 10, // [8] Setting vertical padding.
-    marginVertical: 10, // [8] Setting vertical margin.
-    backgroundColor: AppColors.buttonPrimary, // Setting background color based on AppColors constant.
-    borderRadius: 5, // Setting border radius.
+// [5] Declaring StyleSheet for local styles.
+const styles = StyleSheet.create({ 
+  // Defining style for mainView.
+  mainView: { 
+    // [6] Setting width based on WINDOW_WIDTH constant.
+    width: WINDOW_WIDTH * 0.35, 
+    // [7] Aligning items to the center.
+    alignItems: 'center', 
+    // [7] Justifying content to the center.
+    justifyContent: 'center', 
+    // [8] Setting vertical padding.
+    paddingVertical: 10, 
+    // [8] Setting vertical margin.
+    marginVertical: 10, 
+    // Setting background color based on AppColors constant.
+    backgroundColor: AppColors.buttonPrimary, 
+    // Setting border radius.
+    borderRadius: 5, 
   },
-  labelText: { // Defining style for labelText.
-    color: AppColors.secondaryText, // Setting text color based on AppColors constant.
-    fontSize: AppFontSize.regular, // Setting font size based on AppFontSize constant.
+  // Defining style for labelText.
+  labelText: { 
+    // Setting text color based on AppColors constant.
+    color: AppColors.secondaryText, 
+    // Setting font size based on AppFontSize constant.
+    fontSize: AppFontSize.regular, 
   },
 });
 
@@ -41,3 +58,5 @@ const styles = StyleSheet.create({ // [5] Declaring StyleSheet for local styles.
 // [6] “Height and Width · React Native.” [Online]. Available: https://reactnative.dev/docs/height-and-width. [Accessed: 17-Apr-2024]
 // [7] “Layout with Flexbox · React Native.” [Online]. Available: https://reactnative.dev/docs/flexbox. [Accessed: 17-Apr-2024]
 // [8] “Layout Props · React Native.” [Online]. Available: https://reactnative.dev/docs/layout-props. [Accessed: 17-Apr-2024]
+
+

@@ -1,11 +1,17 @@
 // [1] [4] Importing necessary components and modules from React Native and other dependencies
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState, useEffect} from 'react'; // [2]
-import {AppColors, AppFontSize, GlobalStyles, WINDOW_WIDTH} from '../Global'; // [3] Custom styles and constants
-import TextInputComp from '../Components/TextInputComp'; // Custom TextInput component
-import MainButton from '../Components/MainButton'; // Custom Button component
-import auth from '@react-native-firebase/auth'; // [12] [13] Firebase authentication module
-const Buffer = require('buffer').Buffer; // [14] Node.js Buffer module for data manipulation
+// [2]
+import React, {useState, useEffect} from 'react'; 
+// [3] Custom styles and constants
+import {AppColors, AppFontSize, GlobalStyles, WINDOW_WIDTH} from '../Global'; 
+// Custom TextInput component
+import TextInputComp from '../Components/TextInputComp'; 
+// Custom Button component
+import MainButton from '../Components/MainButton'; 
+// [12] [13] Firebase authentication module
+import auth from '@react-native-firebase/auth'; 
+// [14] Node.js Buffer module for data manipulation
+const Buffer = require('buffer').Buffer; 
 
 // Define a functional component named 'Login' accepting props
 export default function Login(props: any) {
@@ -20,7 +26,8 @@ export default function Login(props: any) {
       // If a user is already signed in, navigate to the 'Home' screen
       props.navigation.replace('Home');
     }
-  }, []) // Empty dependency array ensures this effect runs only once after initial render
+    // Empty dependency array ensures this effect runs only once after initial render
+  }, []) 
   
   // [5] Function to handle the login process
   const handleLogin = () => {
@@ -30,15 +37,18 @@ export default function Login(props: any) {
         alert('Fill all fields');
         return;
       }
-      setloading(true); // Start loading
-      let encryptedPassword = new Buffer(password).toString('base64'); // Encrypt password
+      // Start loading
+      setloading(true); 
+      // Encrypt password
+      let encryptedPassword = new Buffer(password).toString('base64'); 
 
       // Sign in using email and encrypted password
       auth()
         .signInWithEmailAndPassword(email, encryptedPassword)
         .then(res => {
           setloading(false);
-          props.navigation.replace('Home'); // Navigate to the 'Home' screen after successful login
+          // Navigate to the 'Home' screen after successful login
+          props.navigation.replace('Home'); 
         })
         .catch(err => {
           // Handle different types of authentication errors
@@ -70,7 +80,7 @@ export default function Login(props: any) {
         label={'Enter Password'}
         placeholder={'Enter Password'}
         onChangeVal={setpassword}
-        secureTextEntry={true}
+        secureTextEnty={true}
       />
       <View style={styles.signUpMainView}>
         <Text style={styles.dontHaveText}>Don't have an Account? </Text>
@@ -96,19 +106,26 @@ export default function Login(props: any) {
 
 // Stylesheet for the Login component [8]
 const styles = StyleSheet.create({
-  signUpMainView: { // [9]
+  // [9]
+  signUpMainView: { 
     width: WINDOW_WIDTH * 0.8,
-    alignItems: 'flex-end', // [10]
-    justifyContent: 'flex-end', // [10]
-    marginVertical: 10, // [11]
-    flexDirection: 'row', // [10]
+     // [10]
+    alignItems: 'flex-end',
+    // [10]
+    justifyContent: 'flex-end', 
+    // [11]
+    marginVertical: 10, 
+    // [10]
+    flexDirection: 'row', 
   },
-  signUpText: { // [9]
+  // [9]
+  signUpText: { 
     fontWeight: 'bold',
     fontSize: AppFontSize.small,
     color: AppColors.primaryText,
   },
-  dontHaveText: { // [9]
+  // [9]
+  dontHaveText: { 
     color: AppColors.primaryText,
     fontSize: AppFontSize.small,
   },

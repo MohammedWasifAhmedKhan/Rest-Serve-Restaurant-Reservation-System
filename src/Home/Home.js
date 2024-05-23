@@ -1,10 +1,17 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native'; // [4] Importing necessary components from React Native library.
-import React, {useState, useEffect} from 'react'; // [1] Importing React library and useState hook.
-import {GlobalStyles} from '../Global'; // Importing custom global styles.
-import AppHeader from '../Components/AppHeader'; // Importing AppHeader component.
-import TableItem from '../Components/TableItem'; // Importing TableItem component.
-import BookingTableModal from '../Components/BookingTableModal'; // Importing BookingTableModal component.
-import TableDetailsModal from '../Components/TableDetailsModal'; // Importing TableDetailsModal component.
+// [4] Importing necessary components from React Native library.
+import {FlatList, StyleSheet, Text, View} from 'react-native'; 
+// [1] Importing React library and useState hook.
+import React, {useState, useEffect} from 'react'; 
+// Importing custom global styles.
+import {GlobalStyles} from '../Global'; 
+// Importing AppHeader component.
+import AppHeader from '../Components/AppHeader'; 
+// Importing TableItem component.
+import TableItem from '../Components/TableItem'; 
+// Importing BookingTableModal component.
+import BookingTableModal from '../Components/BookingTableModal'; 
+// Importing TableDetailsModal component.
+import TableDetailsModal from '../Components/TableDetailsModal'; 
 import {useDispatch, useSelector} from 'react-redux';
 import {
   bookTable,
@@ -16,16 +23,18 @@ import auth from '@react-native-firebase/auth';
 import UserActionModal from '../Components/UserActionModal';
 import TableTimeReducerModal from '../Components/TableTimeReducerModal';
 import AddTowWaitListModal from '../Components/AddToWaitlistModal';
-
-export default function Home(props) { // Declaring Home functional component.
-  //using useDispatch hook to dispatch actions
-  const dispatch = useDispatch(); // [2] Initializing useDispatch hook.
-  //using useSelector hook to get state from store
-  const tablesDataRedux = useSelector(state => state?.tableReducer?.tablesList); // [3] Fetching tables data from Redux store.
+// Declaring Home functional component.
+export default function Home(props) { 
+  // [2] using useDispatch hook to dispatch actions
+  const dispatch = useDispatch(); 
+  //using useSelector hook to fetch tables data from Redux store.
+  const tablesDataRedux = useSelector(state => state?.tableReducer?.tablesList); 
   const [handleBookingModalVisibility, sethandleBookingModalVisibility] =
-    useState(false); // [1] State for booking modal visibility.
+  // [1] State for booking modal visibility.
+    useState(false); 
   const [handleVacateTableVisibility, sethandleVacateTableVisibility] =
-    useState(false); // [1] State for vacating table modal visibility.
+  // [1] State for vacating table modal visibility.
+    useState(false); 
   const [userActionModalVisibility, setuserActionModalVisibility] =
     useState(false);
   const [addToWaitListModalVisibility, setaddToWaitListModalVisibility] =
@@ -35,21 +44,28 @@ export default function Home(props) { // Declaring Home functional component.
     settableTimeHandlingModalVisibility,
   ] = useState(false);
   const [reducingTimeIntervalId, setreducingTimeIntervalId] = useState(null);
-  const [tabelInfo, settabelInfo] = useState(null); // [1] State for storing table information.
+  // [1] State for storing table information.
+  const [tabelInfo, settabelInfo] = useState(null); 
   //function called when user wants to handle table press
-  const handleTableOnPress = data => { // Function to handle table press events.
-    settabelInfo(data); // Setting table information.
-    if (data.status == 'o') { // Checking if table is occupied.
-      sethandleVacateTableVisibility(true); // Showing vacate table modal.
-    } else if (data.status == 'f') { // Checking if table is free.
-      sethandleBookingModalVisibility(true); // Showing booking modal.
+  const handleTableOnPress = data => { 
+    // Setting table information.
+    settabelInfo(data); 
+    // Checking if table is occupied.
+    if (data.status == 'o') { 
+      // Showing vacate table modal.
+      sethandleVacateTableVisibility(true); 
+      // Checking if table is free.
+    } else if (data.status == 'f') { 
+      // Showing booking modal.
+      sethandleBookingModalVisibility(true); 
     }
   };
 
 //function to reduce table time 3rd
   const findTableAndReduceItsTime = (time, tableData) => {
-    try {  // Starts a try block to catch and handle any potential errors that might occur during the execution of the code within it.   
-        // Filters the array `tablesDataRedux` to find the table where the table's ID (table number) matches the `id` from `tableData`. 
+    // Starts a try block to catch and handle any potential errors that might occur during the execution of the code within it.   
+    // Filters the array `tablesDataRedux` to find the table where the table's ID (table number) matches the `id` from `tableData`. 
+    try {  
       let tableToUpdate = tablesDataRedux.filter(
         item => item.id == tableData.id,
       )?.[0];
@@ -60,7 +76,7 @@ export default function Home(props) { // Declaring Home functional component.
        // Calculates the new start time by subtracting the given `time` converted to milliseconds (time in minutes * 60 seconds/minute * 1000 milliseconds/second) from `tableToUpdate.start_time`. 
       let reducedTimevalue =
         tableToUpdate.start_time - parseInt(time) * 60 * 1000;
-        C 51      // Checks if the new time value is less than or equal to zero. 
+              // Checks if the new time value is less than or equal to zero. 
       if (reducedTimevalue <= 0) {
           // If the time is up, updates the table's status to 'f' (presumably indicating 'free' or 'finished').
         tableToUpdate.status = 'f';
@@ -175,23 +191,28 @@ export default function Home(props) { // Declaring Home functional component.
       // console.log('temp', temp);
       dispatch(bookTable(temp));
     }
-    sethandleBookingModalVisibility(!handleBookingModalVisibility); // Toggling booking modal visibility.
+    // Toggling booking modal visibility.
+    sethandleBookingModalVisibility(!handleBookingModalVisibility); 
   };
 
   //to mark table as free/vacate
-  const handleTabelDetailsModalVisibilityFun = data => { // Function to handle table details modal visibility.
+  const handleTabelDetailsModalVisibilityFun = data => { 
     console.log('data handleTabelDetailsModalVisibilityFun', data);
-    if (data?.id) { // Checking if data exists.
-      let temp = { // Creating temporary object with updated table details.
+    // Checking if data exists.
+    if (data?.id || data?.status) { 
+      // Creating temporary object with updated table details.
+      let temp = { 
         ...data,
         status: 'f',
         booking: null,
         index: data.id,
       };
-      dispatch(vacateTable(temp)); // Dispatching action to vacate table.
+      // Dispatching action to vacate table.
+      dispatch(vacateTable(temp)); 
       alert(`Table ${data.id} vacated successfully`);
     }
-    sethandleVacateTableVisibility(!handleTabelDetailsModalVisibilityFun); // Toggling table details modal visibility.
+    // Toggling table details modal visibility.
+    sethandleVacateTableVisibility(!handleTabelDetailsModalVisibilityFun); 
   };
   // function to handle add to waitlist modal visibility
   const handleAddToWaitListModalVisibilityFun = () => {
@@ -215,46 +236,47 @@ export default function Home(props) { // Declaring Home functional component.
       />
     );
   };
+  // Displaying following in order:
+  // 1. Modal for booking table
+  // 2. Modal for table details and vacating table
+  // 3. Modal for table time reducer
+  // 4. Modal for user action like reduce time or add to waitlist
+  // 5. Modal for add to waitlist
+  // 6. Main Header
+  // 7. Showing Table List via FlatList component
   return (
     <View style={[GlobalStyles.mainView, styles.mainView]}>
-      {/* Modal for booking table */}
       <BookingTableModal
         visible={handleBookingModalVisibility}
         handleVisibility={handleBookingModalVisibilityFun}
         data={tabelInfo}
       />
-      {/* Modal for table details and vacating table */}
       <TableDetailsModal
         visible={handleVacateTableVisibility}
         handleVisibility={handleTabelDetailsModalVisibilityFun}
         data={tabelInfo}
         vacateTabel={handleTabelDetailsModalVisibilityFun}
       />
-      {/* Modal for table time reducer */}
       <TableTimeReducerModal
         handleVisibility={hideTableTimeModalFun}
         visible={tableTimeHandlingModalVisibility}
         action1={handleTabelTimeModalFun}
       />
-      {/* Modal for user action like reduce time or add to waitlist */}
       <UserActionModal
         action1={handleTabelTimeModalFun}
         handleVisibility={handleUserActionModalVisibilityFun}
         visible={userActionModalVisibility}
         action2={handleAddToWaitListModalVisibilityFun}
       />
-      {/* Modal for add to waitlist */}
       <AddTowWaitListModal
         handleVisibility={handleAddToWaitListModalVisibilityFun}
         visible={addToWaitListModalVisibility}
       />
-      {/*Main Header */}
       <AppHeader
         label={'Home'}
         right
         rightOnPress={handleUserActionModalVisibilityFun}
       />
-      {/*Showing Table List */}
       <FlatList
         showsVerticalScrollIndicator={false}
         data={tablesDataRedux}
@@ -271,10 +293,12 @@ export default function Home(props) { // Declaring Home functional component.
     </View>
   );
 }
-
-const styles = StyleSheet.create({  // Declaring StyleSheet for local styles.
-  mainView: {  // Defining style for mainView.
-    alignItems: 'center', // Aligning items to the center.
+// Declaring StyleSheet for local styles.
+const styles = StyleSheet.create({  
+  // Defining style for mainView.
+  mainView: {  
+    // Aligning items to the center.
+    alignItems: 'center', 
   },
 });
 

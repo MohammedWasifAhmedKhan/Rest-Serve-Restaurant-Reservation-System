@@ -1,18 +1,23 @@
-import {StyleSheet, Text, TextInput, View} from 'react-native'; // [2] [3] Importing necessary components from React Native library.
-import React from 'react';  // [1] Importing React library to use JSX syntax.
-import {AppColors, AppFontSize, WINDOW_WIDTH} from '../Global'; // Importing custom global constants.
-
+// [2] [3] Importing necessary components from React Native library.
+import {StyleSheet, Text, TextInput, View} from 'react-native'; 
+// [1] Importing React library to use JSX syntax.
+import React from 'react';  
+// Importing custom global constants.
+import {AppColors, AppFontSize, WINDOW_WIDTH} from '../Global'; 
+// Declaring TextInputComp functional component. Props are passed as arguments.
 export default function TextInputComp({
   label,
   placeholder,
   onChangeVal,
   secureTextEnty = false,
   keyboardType = 'default',
-}) { // Declaring TextInputComp functional component. Props are passed as arguments.
+}) { 
   return (
-    <View style={styles.mainView}>  {/* Rendering a View with local styles. */}
-      <Text style={styles.labelText}>{label}</Text> {/* Rendering text with local styles and the 'label' prop. */}
-      <TextInput {/* Rendering TextInput with placeholder and local styles. */}
+    // Rendering a View with local styles.
+    <View style={styles.mainView}>  
+      <Text style={styles.labelText}>{label}</Text> 
+      
+      <TextInput 
         keyboardType={keyboardType}
         placeholder={placeholder}
         style={styles.textInputStyle}

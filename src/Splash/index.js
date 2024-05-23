@@ -1,15 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'; // [1] [2] Importing necessary components from React Native library.
-import React from 'react'; // Importing React library for creating components.
+// [1] [2] Importing necessary components from React Native library.
+import { StyleSheet, Text, View } from 'react-native'; 
+// Importing React library for creating components.
+import React from 'react'; 
 
-export default function index() { // Declaring a functional component named 'index'.
+// Declaring a functional component named 'index'.
+export default function index() { 
   return (
-    <View> {/* Rendering a View component */}
-      <Text>index</Text> {/* [2] Rendering a Text component with the text 'index' */}
+    <View> 
+      <Text>index</Text> 
     </View>
   );
 }
 
-const styles = StyleSheet.create({}); // [1] Declaring an empty StyleSheet object for styling components.
+// [1] Declaring an empty StyleSheet object for styling components.
+const styles = StyleSheet.create({}); 
 
 // REFERENCES:
 // [1] “StyleSheet · React Native.” [Online]. Available: https://reactnative.dev/docs/stylesheet. [Accessed: 17-Apr-2024]

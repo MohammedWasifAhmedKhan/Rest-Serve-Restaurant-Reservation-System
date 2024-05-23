@@ -32,17 +32,17 @@ export default function TableItem({
     }
       // Converting the remaining time from milliseconds to minutes and seconds 
     let totalSeconds = Math.floor(remainingTime / 1000);
-      // Adding leading zeros to minutes and seconds if they are less than 10 
     let minutes = Math.floor(totalSeconds / 60);
     let seconds = totalSeconds % 60;
-      // Updating the remainingTime state with the formatted time 
     return {minutes, seconds};
   }
     // Function to display the remaining time in minutes and seconds 
   function displayTime() {
     let {minutes, seconds} = formatTime();
+    // Adding leading zeros to minutes and seconds if they are less than 10 
     minutes = minutes > 9 ? minutes : '0' + minutes;
     seconds = seconds > 9 ? seconds : '0' + seconds;
+    // Updating the remainingTime state with the formatted time 
     setremainingTime(`${minutes}:${seconds}`);
   }
 
@@ -63,21 +63,18 @@ export default function TableItem({
   }, [data.status]);
  // Returning the JSX for rendering the table item
   return (
-    <TouchableOpacity onPress={() => handleTableOnPress(data)}> {/* [1] Render TouchableOpacity with onPress event handler. */}
+    <TouchableOpacity onPress={() => handleTableOnPress(data)}> 
       <View style={styles.mainView}>
         <View style={styles.iconContainer}>
-           {/* Displaying an icon and the number of persons at the table */} 
           <MaterialIcons name="group" size={RFValue(20)} color="#000" />
           <Text style={styles.tabelePersonsText}>: {data.persons}</Text>
-        </View>
-        {/* Displaying booking time and remaining time only if the table is occupied */}
+        </View> 
         {data.status === 'o' && (
           <>
             <Text>Booked At: {moment(data.booking_time).format('hh:mm A')}</Text>
             <Text>Remaining Time: {remainingTime}</Text>
           </>
         )}
-        {/* Displaying the table ID with a colored circle indicating its status */} 
         <View
           style={[
             styles.roundView,
@@ -96,8 +93,8 @@ export default function TableItem({
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({ // [2] Declaring StyleSheet for local styles.
+// [2] Declaring StyleSheet for local styles.
+const styles = StyleSheet.create({ 
   mainView: {
     width: WINDOW_WIDTH * 0.4,
     backgroundColor: '#fff',

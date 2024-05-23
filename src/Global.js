@@ -1,4 +1,5 @@
-import {Dimensions, StyleSheet} from 'react-native'; // [1] [2] Importing necessary components from React Native library.
+// [1] [2] Importing necessary components from React Native library.
+import {Dimensions, StyleSheet} from 'react-native'; 
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 
 export const AppColors = {
@@ -18,11 +19,12 @@ export const AppFontSize = {
   large: RFValue(27),
 };
 
-export const WINDOW_WIDTH = Dimensions.get('window').width; // [2] Getting the window width.
-
-export const WINDOW_HEIGHT = Dimensions.get('window').height; // [2] Getting the window height.
-
-export const GlobalStyles = StyleSheet.create({ // [1] Creating global styles using StyleSheet.
+// [2] Getting the window width.
+export const WINDOW_WIDTH = Dimensions.get('window').width; 
+// [2] Getting the window height.
+export const WINDOW_HEIGHT = Dimensions.get('window').height; 
+// [1] Creating global styles using StyleSheet.
+export const GlobalStyles = StyleSheet.create({ 
   mainView: {
     flex: 1,
     backgroundColor: AppColors.backgroundColor,

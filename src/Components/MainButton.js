@@ -1,52 +1,55 @@
-import {ActivityIndicator, StyleSheet, Text, TouchableOpacity, View} from 'react-native'; // [1] [2] [3] [4] Importing necessary components from React Native library.
-import React from 'react'; // Importing React library to use JSX syntax.
-import {AppColors, AppFontSize, WINDOW_WIDTH} from '../Global'; // Importing custom global constants.
+// [1] [2] [3] [4] Importing necessary components from React Native library.
+import {ActivityIndicator, StyleSheet, Text, TouchableOpacity, View} from 'react-native'; 
+// Importing React library to use JSX syntax.
+import React from 'react'; 
+// Importing custom global constants.
+import {AppColors, AppFontSize, WINDOW_WIDTH} from '../Global'; 
 
-export default function MainButton({label, loading,onPress}) { // Declaring MainButton functional component. Props are passed as arguments.
-  return loading ? ( // Conditional rendering based on the 'loading' prop.
-    <View style={styles.mainView}> {/* Rendering a View with local styles. */}
-     <ActivityIndicator color={'#fff'} size={'small'} /> {/* Rendering ActivityIndicator with specified color and size. */}
+// Declaring MainButton functional component. Props are passed as arguments.
+export default function MainButton({label, loading,onPress}) { 
+  // Conditional rendering based on the 'loading' prop.
+  return loading ? ( 
+    <View style={styles.mainView}> 
+     <ActivityIndicator color={'#fff'} size={'small'} /> 
     </View>
-  ) : ( // Conditional rendering if 'loading' is false.
-    <TouchableOpacity onPress={onPress}> {/* Rendering TouchableOpacity with onPress event handler. */}
-      <View style={styles.mainView}> {/* Rendering a View with local styles. */}
-        <Text style={styles.labelText}>{label}</Text> {/* Rendering text with local styles and the 'label' prop. */}
+    // Conditional rendering if 'loading' is false.
+  ) : ( 
+    <TouchableOpacity onPress={onPress}> 
+      <View style={styles.mainView}> 
+        <Text style={styles.labelText}>{label}</Text> 
       </View>
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({ // [5] Declaring StyleSheet for local styles.
-  mainView: { // Defining style for mainView.
-    width: WINDOW_WIDTH * 0.8, // [6] Setting width based on WINDOW_WIDTH constant.
-    alignItems: 'center', // [7] Aligning items to the center.
-    justifyContent: 'center', // [7] Justifying content to the center of the button.
-    paddingVertical: 10, // [8] Setting vertical padding.
-    marginVertical: 10, // [8] Setting vertical margin.
-    backgroundColor: AppColors.buttonPrimary, // Setting background color based on AppColors constant.
-    borderRadius: 5, // Setting border radius.
+// [5] Declaring StyleSheet for local styles.
+const styles = StyleSheet.create({ 
+  // Defining style for mainView.
+  mainView: { 
+    // [6] Setting width based on WINDOW_WIDTH constant.
+    width: WINDOW_WIDTH * 0.8, 
+    // [7] Aligning items to the center.
+    alignItems: 'center', 
+    // [7] Justifying content to the center of the button.
+    justifyContent: 'center', 
+    // [8] Setting vertical padding.
+    paddingVertical: 10,
+    // [8] Setting vertical margin. 
+    marginVertical: 10, 
+    // Setting background color based on AppColors constant.
+    backgroundColor: AppColors.buttonPrimary, 
+    // Setting border radius.
+    borderRadius: 5, 
   },
-  labelText:{ // Defining style for labelText.
-    color:AppColors.secondaryText, // Setting text color based on AppColors constant.
-    fontSize:AppFontSize.regular // Setting font size based on AppFontSize constant.
+  // Defining style for labelText.
+  labelText:{ 
+    // Setting text color based on AppColors constant.
+    color:AppColors.secondaryText, 
+    // Setting font size based on AppFontSize constant.
+    fontSize:AppFontSize.regular 
   }
 });
 
-// JavaScript Fundamentals:
 
-/* ES6+ Features: Arrow functions are used for defining the MainButton functional component. Destructuring assignment is used in the function parameters to extract props.
-Functions: The MainButton functional component is defined.
-React.js Core Concepts:
-Components: MainButton is a functional component.
-JSX: JSX syntax is used to define UI elements.
-Props & State: MainButton component accepts props like label, loading, and onPress.
-Rendering: UI elements are rendered based on the value of the loading prop.
-Additional Considerations:
-Conditional Rendering: Conditional rendering is implemented based on the loading prop.
-Event Handling: Event handling is implemented for the onPress event of TouchableOpacity.
-Libraries and Frameworks: No specific state management libraries like Redux or MobX are used in this code snippet.
-
-*/
 
 // REFERENCES:
 // [1] “ActivityIndicator · React Native.” [Online]. Available: https://reactnative.dev/docs/activityindicator. [Accessed: 17-Apr-2024]

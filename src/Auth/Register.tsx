@@ -1,11 +1,17 @@
 // [1] Importing necessary components and modules from 'react-native' and other libraries
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react'; // [2]
-import {GlobalStyles} from '../Global'; // Importing global styles from the Global module
-import TextInputComp from '../Components/TextInputComp'; // [3] Custom TextInput component
-import MainButton from '../Components/MainButton'; // Custom button component
-import firestore from '@react-native-firebase/firestore'; // [8] Firebase Firestore for database operations
-import auth from '@react-native-firebase/auth'; // [9] Firebase Auth for authentication
+// [2]
+import React, {useState} from 'react'; 
+// Importing global styles from the Global module
+import {GlobalStyles} from '../Global'; 
+// [3] Custom TextInput component
+import TextInputComp from '../Components/TextInputComp'; 
+// Custom button component
+import MainButton from '../Components/MainButton'; 
+// [8] Firebase Firestore for database operations
+import firestore from '@react-native-firebase/firestore'; 
+// [9] Firebase Auth for authentication
+import auth from '@react-native-firebase/auth'; 
 
 // Importing Buffer from the 'buffer' module to handle binary data (used here for password encoding) [10]
 const Buffer = require('buffer').Buffer; 
@@ -33,8 +39,10 @@ export default function Register(props: any) {
         alert('Passwords do not match');
         return;
       }
-      setloading(true); // Set loading state to true during the registration process
-      let encryptedPassword = new Buffer(password).toString('base64'); // Encrypting the password
+      // Set loading state to true during the registration process
+      setloading(true); 
+      // Encrypting the password
+      let encryptedPassword = new Buffer(password).toString('base64'); 
       console.log('encryptedPassword', encryptedPassword);
       let tempdata = {
         firstName,
@@ -42,23 +50,31 @@ export default function Register(props: any) {
         email,
         password: encryptedPassword,
       };
-      // Using Firebase Auth to create a new user with email and encrypted password
+
+      console.log("temp data", tempdata);
+      // Using Firebase Auth to create a new user with email and encrypted password [11]
       auth()
-        .createUserWithEmailAndPassword(email, encryptedPassword) // [11]
+        .createUserWithEmailAndPassword(email, encryptedPassword) 
         .then(() => {
+          console.log("In createUser()");
           // If the user is created, add their details to Firestore under 'Users' collection
           firestore()
           .collection('Users')
           .add(tempdata)
           .then(() => {
-              setloading(false); // Reset loading state
-              props.navigation.replace('Home'); // [6] Navigate to Home screen
+            // Reset loading state
+              setloading(false); 
+              // [6] Navigate to Home screen
+              props.navigation.replace('Home'); 
               console.log('User added to firestore!');
-            });
+            }).catch((error) => {
+              console.log("Firestore error", error);
+            })
           console.log('User account created & signed in!');
         })
         .catch(error => {
-          setloading(false); // Reset loading state on error
+          // Reset loading state on error
+          setloading(false); 
           // Handling specific authentication errors
           if (error.code === 'auth/email-already-in-use') {
             console.log('That email address is already in use!');
@@ -71,7 +87,9 @@ export default function Register(props: any) {
           console.error(error);
         });
     } catch (error) {
-      setloading(false); // Ensure loading state is reset if an exception occurs
+      console.log("Error", error);
+      // Ensure loading state is reset if an exception occurs
+      setloading(false); 
     }
   };
 

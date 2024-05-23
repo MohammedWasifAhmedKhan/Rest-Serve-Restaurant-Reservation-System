@@ -1,7 +1,8 @@
-import { SET_USER } from "../Types"; // Importing action type.
-
+// Importing action type.
+import { SET_USER } from "../Types"; 
 const initialState = {
-  user: '', // Initializing user state.
+  // Initializing user state.
+  user: '', 
 };
 
 // Reducer function for user data.
@@ -9,12 +10,15 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
       return {
-        ...state, // Spread operator to maintain immutability.
-        user: action.payload, // Updating user state with payload data.
+        // Spread operator to maintain immutability.
+        ...state, 
+        // Updating user state with payload data.
+        user: action.payload, 
       };
     default:
-      return state; // Returning current state for other actions.
+      // Returning current state for other actions.
+      return state; 
   }
 };
-
-export default userReducer; // Exporting userReducer function.
+// Exporting userReducer function.
+export default userReducer; 
